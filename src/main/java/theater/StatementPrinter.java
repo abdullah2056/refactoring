@@ -36,7 +36,7 @@ public class StatementPrinter {
         for (Performance p : invoice.getPerformances()) {
             // print line for this order
             result.append(String.format("  %s: %s (%s seats)%n", getPlay(p).getName(),
-                    usd(getThisAmount(p)), p.getAudience()));
+                    usd(getAmount(p)), p.getAudience()));
         }
 
         result.append(String.format("Amount owed is %s%n", usd(getTotalAmount())));
@@ -47,7 +47,7 @@ public class StatementPrinter {
     private int getTotalAmount() {
         int result = 0;
         for (Performance performance : invoice.getPerformances()) {
-            result += getThisAmount(performance);
+            result += getAmount(performance);
         }
         return result;
     }
@@ -79,7 +79,7 @@ public class StatementPrinter {
         return plays.get(performance.getPlayID());
     }
 
-    private static int getThisAmount(Performance performance) {
+    private static int getAmount(Performance performance) {
         int thisAmount = 0;
         final Play play = getPlay(performance);
         switch (play.getType()) {
